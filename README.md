@@ -11,7 +11,7 @@ python3 -m pip install nuitka
 
 Command we use:
 ```
-nuitka --onefile "gd-save-editor.py"
+nuitka --enable-plugin=tk-inter --onefile "gd-save-editor.py"
 ```
 
 ## Files
