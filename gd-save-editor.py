@@ -47,13 +47,14 @@ def main():
 
             for save_file in SAVE_FILE_NAMES:
                 XML_NAME = save_file.replace('.dat', '.xml')
-                XML_PATH = os.path.join(CURRENT_PATH, XML_NAME).replace('\\', '/')
+                INPUT_PATH = os.path.join(CURRENT_PATH, save_file).replace('\\', '/')
+                OUTPUT_PATH = os.path.join(SAVE_FILE_PATH, save_file).replace('\\', '/')
                 if not os.path.exists(os.path.join(CURRENT_PATH, XML_NAME)):
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} Unable to find {XML_NAME} in {CURRENT_PATH}{color.RESET}')
                     continue
 
                 try:
-                    with open(os.path.join(SAVE_FILE_PATH, save_file), 'rb') as f:
+                    with open(OUTPUT_PATH, 'rb') as f:
                         decrypted_data = f.read()
 
                     compressed_data = zlib.compress(decrypted_data)
@@ -67,13 +68,16 @@ def main():
                     with open(os.path.join(SAVE_FILE_PATH, save_file), 'wb') as f:
                         f.write(encrypted_data)
 
-                    print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Encryped {save_file} & saved to {XML_PATH} {color.RESET}')
+                    print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Encryped {save_file} & saved to {OUTPUT_PATH} {color.RESET}')
                 except Exception as error:
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
 
             del SAVE_FILE_PATH
             del SAVE_FILE_NAMES
             del CURRENT_PATH
+            del XML_NAME
+            del INPUT_PATH
+            del OUTPUT_PATH
             time.sleep(3)
         elif option == '2':
             config_data = load_config()
@@ -84,13 +88,14 @@ def main():
 
             for save_file in SAVE_FILE_NAMES:
                 XML_NAME = save_file.replace('.dat', '.xml')
-                XML_PATH = os.path.join(SAVE_FILE_PATH, save_file).replace('\\', '/')
+                INPUT_PATH = os.path.join(SAVE_FILE_PATH, save_file).replace('\\', '/')
+                OUTPUT_PATH = os.path.join(CURRENT_PATH, save_file).replace('\\', '/')
                 if not os.path.exists(os.path.join(SAVE_FILE_PATH, save_file)):
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} Unable to find {XML_NAME} in {SAVE_FILE_PATH}{color.RESET}')
                     continue
 
                 try:
-                    with open(XML_PATH, 'rb') as f:
+                    with open(INPUT_PATH, 'rb') as f:
                         encrypted_data = f.read()
 
                     decrypted_data = xor_bytes(encrypted_data, 11)
@@ -100,13 +105,16 @@ def main():
                     with open(XML_NAME, 'wb') as f:
                         f.write(decompressed_data)
 
-                    print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Decryped {XML_NAME} & saved to {XML_PATH} {color.RESET}')
+                    print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Decryped {XML_NAME} & saved to {OUTPUT_PATH} {color.RESET}')
                 except Exception as error:
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
 
             del SAVE_FILE_PATH
             del SAVE_FILE_NAMES
             del CURRENT_PATH
+            del XML_NAME
+            del INPUT_PATH
+            del OUTPUT_PATH
             time.sleep(3)
         elif option == '3':
             while True:
