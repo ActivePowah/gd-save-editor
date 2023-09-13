@@ -105,7 +105,7 @@ def main():
                     with open(os.path.join(SAVE_FILE_PATH, save_file), 'wb') as f:
                         f.write(compiled_data)
 
-                    print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Encryped {save_file} & saved to {OUTPUT_PATH} {color.RESET}')
+                    print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Compiled {save_file} & saved to {OUTPUT_PATH} {color.RESET}')
                 except Exception as error:
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
 
