@@ -174,4 +174,6 @@ def main():
             time.sleep(3)
 
 if __name__ == '__main__':
+    if not os.path.exists('config.json'):
+        initialize_config()
     main()
