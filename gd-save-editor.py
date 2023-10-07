@@ -6,6 +6,10 @@ import json
 from colorama import Fore as color
 import time
 
+if os.name != "nt":
+    print("Wndows is only supported")
+    exit()
+
 def initialize_config():
     default_config = {
         'save-path': os.path.join(os.getenv('LocalAppData'), 'GeometryDash').replace('\\', '/'),
