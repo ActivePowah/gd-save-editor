@@ -5,14 +5,4 @@ You can download the latest version [here](https://github.com/Xytriza/gd-save-ed
 
 ---
 
-To customize the default path and save filename, just edit the values in `config.json`:
-
-```json
-{
-    "save-path": "C:/Users/cryfx/AppData/Local/GeometryDash",
-    "save-file-names": [
-        "CCGameManager.dat",
-        "CCLocalLevels.dat"
-    ]
-}
-```
+To customize the default path and save filename using the config editor
