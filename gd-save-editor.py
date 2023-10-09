@@ -40,7 +40,7 @@ def clear():
 def main():
     while True:
         clear()
-        option = input(f'{color.LIGHTBLUE_EX}GD Save Editor by Xytriza\n\n{color.YELLOW}[1]{color.LIGHTGREEN_EX} Decompile GD Save Files     {color.YELLOW}[2]{color.LIGHTGREEN_EX} Compile GD Save Files & Replace Existing Files     {color.YELLOW}[3]{color.LIGHTGREEN_EX} Path Editor{color.RESET}\n\n')
+        option = input(f'{color.LIGHTBLUE_EX}GD Save Editor by Xytriza\n\n{color.YELLOW}[1]{color.LIGHTGREEN_EX} Decompile     {color.YELLOW}[2]{color.LIGHTGREEN_EX} Compile     {color.YELLOW}[3]{color.LIGHTGREEN_EX} Path Editor{color.RESET}\n\n')
 
         if option == '1':
             config_data = load_config()
