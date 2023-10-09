@@ -16,14 +16,14 @@ def initialize_config():
         'save-file-names': ['CCGameManager.dat', 'CCLocalLevels.dat']
     }
 
-    with open('config.json', 'w') as file:
+    with open('config-gd-save-editor.json', 'w') as file:
         json.dump(default_config, file, indent=4)
 
 def load_config():
-    if not os.path.exists('config.json'):
+    if not os.path.exists('config-gd-save-editor.json'):
         initialize_config()
 
-    with open('config.json', 'r') as file:
+    with open('config-gd-save-editor.json', 'r') as file:
         config_data = json.load(file)
 
     return config_data
@@ -126,7 +126,7 @@ def main():
                     try:
                         config_data = load_config()
                         config_data['save-path'] = folder
-                        with open('config.json', 'w') as file:
+                        with open('config-gd-save-editor.json', 'w') as file:
                             json.dump(config_data, file, indent=4)
 
                         clear()
@@ -145,7 +145,7 @@ def main():
                         config_data = load_config()
                         new_values = [value.strip() for value in names.split(',')]
                         config_data['save-file-names'] = new_values
-                        with open('config.json', 'w') as file:
+                        with open('config-gd-save-editor.json', 'w') as file:
                             json.dump(config_data, file, indent=4)
 
                         clear()
@@ -165,6 +165,6 @@ def main():
             time.sleep(3)
 
 if __name__ == '__main__':
-    if not os.path.exists('config.json'):
+    if not os.path.exists('config-gd-save-editor.json'):
         initialize_config()
     main()
