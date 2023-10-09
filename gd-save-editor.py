@@ -54,7 +54,7 @@ def main():
                 INPUT_PATH = os.path.join(SAVE_FILE_PATH, save_file).replace('\\', '/')
                 OUTPUT_PATH = os.path.join(CURRENT_PATH, save_file).replace('\\', '/')
                 if not os.path.exists(os.path.join(SAVE_FILE_PATH, save_file)):
-                    print(f'{color.RED}[X]{color.LIGHTRED_EX} Unable to find {XML_NAME} in {SAVE_FILE_PATH}{color.RESET}')
+                    print(f'{color.RED}[X]{color.LIGHTRED_EX} Unable to find {save_file} in {SAVE_FILE_PATH}{color.RESET}')
                     continue
 
                 try:
@@ -71,31 +71,25 @@ def main():
                     print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Decompiled {XML_NAME} & saved to {OUTPUT_PATH} {color.RESET}')
                 except Exception as error:
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
-
-            del SAVE_FILE_PATH
-            del SAVE_FILE_NAMES
-            del CURRENT_PATH
-            del XML_NAME
-            del INPUT_PATH
-            del OUTPUT_PATH
             time.sleep(3)
         elif option == '2':
             config_data = load_config()
             SAVE_FILE_PATH = config_data.get('save-path')
             SAVE_FILE_NAMES = config_data.get('save-file-names')
-            CURRENT_PATH = os.getcwd()
+            CURRENT_PATH = os.getcwd().replace('\\', '/')
             clear()
 
             for save_file in SAVE_FILE_NAMES:
                 XML_NAME = save_file.replace('.dat', '.xml')
                 INPUT_PATH = os.path.join(CURRENT_PATH, save_file).replace('\\', '/')
+                INPUT_PATH_XML = os.path.join(CURRENT_PATH, save_file).replace('\\', '/').replace('.dat', '.xml')
                 OUTPUT_PATH = os.path.join(SAVE_FILE_PATH, save_file).replace('\\', '/')
                 if not os.path.exists(os.path.join(CURRENT_PATH, XML_NAME)):
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} Unable to find {XML_NAME} in {CURRENT_PATH}{color.RESET}')
                     continue
 
                 try:
-                    with open(OUTPUT_PATH, 'rb') as f:
+                    with open(INPUT_PATH_XML, 'rb') as f:
                         decompiled_data = f.read()
 
                     compressed_data = zlib.compress(decompiled_data)
@@ -112,13 +106,6 @@ def main():
                     print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Compiled {save_file} & saved to {OUTPUT_PATH} {color.RESET}')
                 except Exception as error:
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
-
-            del SAVE_FILE_PATH
-            del SAVE_FILE_NAMES
-            del CURRENT_PATH
-            del XML_NAME
-            del INPUT_PATH
-            del OUTPUT_PATH
             time.sleep(3)
         elif option == '3':
             while True:
