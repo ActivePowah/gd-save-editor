@@ -40,39 +40,9 @@ def clear():
 def main():
     while True:
         clear()
-        option = input(f'{color.LIGHTBLUE_EX}GD Save Editor by Xytriza\n\n{color.YELLOW}[1]{color.LIGHTGREEN_EX} Decompile     {color.YELLOW}[2]{color.LIGHTGREEN_EX} Compile     {color.YELLOW}[3]{color.LIGHTGREEN_EX} Path Editor{color.RESET}\n\n')
+        option = input(f'{color.LIGHTBLUE_EX}GD Save Editor by Xytriza\n\n{color.YELLOW}[1]{color.LIGHTGREEN_EX} Compile     {color.YELLOW}[2]{color.LIGHTGREEN_EX} Decompile     {color.YELLOW}[3]{color.LIGHTGREEN_EX} Path Editor{color.RESET}\n\n')
 
         if option == '1':
-            config_data = load_config()
-            SAVE_FILE_PATH = config_data.get('save-path')
-            SAVE_FILE_NAMES = config_data.get('save-file-names')
-            CURRENT_PATH = os.getcwd()
-            clear()
-
-            for save_file in SAVE_FILE_NAMES:
-                XML_NAME = save_file.replace('.dat', '.xml')
-                INPUT_PATH = os.path.join(SAVE_FILE_PATH, save_file).replace('\\', '/')
-                OUTPUT_PATH = os.path.join(CURRENT_PATH, save_file).replace('\\', '/')
-                if not os.path.exists(os.path.join(SAVE_FILE_PATH, save_file)):
-                    print(f'{color.RED}[X]{color.LIGHTRED_EX} Unable to find {save_file} in {SAVE_FILE_PATH}{color.RESET}')
-                    continue
-
-                try:
-                    with open(INPUT_PATH, 'rb') as f:
-                        compiled_data = f.read()
-
-                    decompiled_data = xor_bytes(compiled_data, 11)
-                    decoded_data = base64.b64decode(decompiled_data, altchars=b'-_')
-                    decompressed_data = zlib.decompress(decoded_data[10:], -zlib.MAX_WBITS)
-
-                    with open(XML_NAME, 'wb') as f:
-                        f.write(decompressed_data)
-
-                    print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Decompiled {XML_NAME} & saved to {OUTPUT_PATH} {color.RESET}')
-                except Exception as error:
-                    print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
-            time.sleep(3)
-        elif option == '2':
             config_data = load_config()
             SAVE_FILE_PATH = config_data.get('save-path')
             SAVE_FILE_NAMES = config_data.get('save-file-names')
@@ -104,6 +74,36 @@ def main():
                         f.write(compiled_data)
 
                     print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Compiled {save_file} & saved to {OUTPUT_PATH} {color.RESET}')
+                except Exception as error:
+                    print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
+            time.sleep(3)
+        elif option == '2':
+            config_data = load_config()
+            SAVE_FILE_PATH = config_data.get('save-path')
+            SAVE_FILE_NAMES = config_data.get('save-file-names')
+            CURRENT_PATH = os.getcwd()
+            clear()
+
+            for save_file in SAVE_FILE_NAMES:
+                XML_NAME = save_file.replace('.dat', '.xml')
+                INPUT_PATH = os.path.join(SAVE_FILE_PATH, save_file).replace('\\', '/')
+                OUTPUT_PATH = os.path.join(CURRENT_PATH, save_file).replace('\\', '/')
+                if not os.path.exists(os.path.join(SAVE_FILE_PATH, save_file)):
+                    print(f'{color.RED}[X]{color.LIGHTRED_EX} Unable to find {save_file} in {SAVE_FILE_PATH}{color.RESET}')
+                    continue
+
+                try:
+                    with open(INPUT_PATH, 'rb') as f:
+                        compiled_data = f.read()
+
+                    decompiled_data = xor_bytes(compiled_data, 11)
+                    decoded_data = base64.b64decode(decompiled_data, altchars=b'-_')
+                    decompressed_data = zlib.decompress(decoded_data[10:], -zlib.MAX_WBITS)
+
+                    with open(XML_NAME, 'wb') as f:
+                        f.write(decompressed_data)
+
+                    print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Decompiled {XML_NAME} & saved to {OUTPUT_PATH} {color.RESET}')
                 except Exception as error:
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
             time.sleep(3)
