@@ -1,13 +1,12 @@
 # GD Save Editor
-A fork of [WEGFan/Geometry-Dash-Savefile-Editor](https://github.com/WEGFan/Geometry-Dash-Savefile-Editor), but with customizable features
+A fork of [WEGFan/Geometry-Dash-Savefile-Editor](https://github.com/WEGFan/Geometry-Dash-Savefile-Editor), now with customizable features.
 
-[Click here](https://github.com/Xytriza/gd-save-editor/releases/latest/download/gd-save-editor.exe) to download the latest version
+You can download the latest version [here](https://github.com/Xytriza/gd-save-editor/releases/latest/download/gd-save-editor.exe).
 
 ---
 
-To modify the path and save filename you can modify **config.json**'s values:
+To customize the default path and save filename, just edit the values in `config.json`:
 
-**config.json** template:
 ```json
 {
     "save-path": "C:/Users/cryfx/AppData/Local/GeometryDash",
