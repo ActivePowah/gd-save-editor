@@ -12,7 +12,7 @@ from tkinter import Tk, filedialog
 from bs4 import BeautifulSoup
 import requests
 
-client_version = '1.0.0'
+client_version = '1.0.1'
 
 try:
     response = requests.get("https://raw.githubusercontent.com/Xytriza/gd-save-editor/client/client.py")
