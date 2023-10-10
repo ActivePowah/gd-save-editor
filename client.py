@@ -8,7 +8,8 @@ import time
 try:
     import psutil
 except ModuleNotFoundError:
-    pass # psutil is not compiled in 1.0.0
+    pass
+# modules not included in 1.0.0
 
 from tkinter import messagebox
 from tkinter import Tk, filedialog
