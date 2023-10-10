@@ -137,7 +137,7 @@ def main():
                     json.dump(config_data, file, indent=4)
 
                 clear()
-                print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Edited Save Path successfully {color.RESET}')
+                print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Save Path changed to {folder}{color.RESET}')
                 time.sleep(3)
             except Exception as error:
                 print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
