@@ -5,6 +5,7 @@ import zlib
 import json
 from colorama import Fore as color
 import time
+import psutil
 
 from tkinter import messagebox
 from tkinter import Tk, filedialog
