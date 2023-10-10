@@ -51,7 +51,7 @@ def main():
         if option == '1':
             clear()
             if check_gd_open():
-                print(f'{color.RED}[!]{color.LIGHTRED_EX} Please close Geometry Dash before editing stats{color.RESET}')
+                print(f'{color.RED}[!]{color.LIGHTRED_EX} Please close Geometry Dash using Compile{color.RESET}')
                 time.sleep(3)
                 continue
             config_data = load_config()
@@ -89,7 +89,7 @@ def main():
         elif option == '2':
             clear()
             if check_gd_open():
-                print(f'{color.RED}[!]{color.LIGHTRED_EX} Please close Geometry Dash before editing stats{color.RESET}')
+                print(f'{color.RED}[!]{color.LIGHTRED_EX} Please close Geometry Dash using Decompile{color.RESET}')
                 time.sleep(3)
                 continue
             config_data = load_config()
