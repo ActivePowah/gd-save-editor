@@ -5,6 +5,7 @@ import zlib
 import json
 from colorama import Fore as color
 import time
+import psutil
 
 if os.name != "nt":
     print("Wndows is only supported")
@@ -37,12 +38,22 @@ def clear():
     else:
         os.system('clear')
 
+def check_gd_open():
+    for proc in psutil.process_iter(['name']):
+        if proc.info['name'] == "GeometryDash.exe":
+            return True
+    return False
+
 def main():
     while True:
         clear()
         option = input(f'{color.LIGHTBLUE_EX}GD Save Editor by Xytriza\n\n{color.YELLOW}[1]{color.LIGHTGREEN_EX} Compile     {color.YELLOW}[2]{color.LIGHTGREEN_EX} Decompile     {color.YELLOW}[3]{color.LIGHTGREEN_EX} Path Editor{color.RESET}\n\n')
 
         if option == '1':
+            if check_gd_open():
+                print(f'{color.RED}[!]{color.LIGHTRED_EX} Please close Geometry Dash before editing stats{color.RESET}')
+                time.sleep(3)
+                continue
             config_data = load_config()
             SAVE_FILE_PATH = config_data.get('save-path')
             SAVE_FILE_NAMES = config_data.get('save-file-names')
@@ -78,6 +89,10 @@ def main():
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
             time.sleep(3)
         elif option == '2':
+            if check_gd_open():
+                print(f'{color.RED}[!]{color.LIGHTRED_EX} Please close Geometry Dash before editing stats{color.RESET}')
+                time.sleep(3)
+                continue
             config_data = load_config()
             SAVE_FILE_PATH = config_data.get('save-path')
             SAVE_FILE_NAMES = config_data.get('save-file-names')
