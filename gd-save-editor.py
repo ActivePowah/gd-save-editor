@@ -13,8 +13,7 @@ if os.name != "nt":
 
 def initialize_config():
     default_config = {
-        'save-path': os.path.join(os.getenv('LocalAppData'), 'GeometryDash').replace('\\', '/'),
-        'save-file-names': ['CCGameManager.dat', 'CCLocalLevels.dat']
+        'save-path': os.path.join(os.getenv('LocalAppData'), 'GeometryDash').replace('\\', '/')
     }
 
     with open('config-gd-save-editor.json', 'w') as file:
@@ -47,7 +46,7 @@ def check_gd_open():
 def main():
     while True:
         clear()
-        option = input(f'{color.LIGHTBLUE_EX}GD Save Editor by Xytriza\n\n{color.YELLOW}[1]{color.LIGHTGREEN_EX} Compile     {color.YELLOW}[2]{color.LIGHTGREEN_EX} Decompile     {color.YELLOW}[3]{color.LIGHTGREEN_EX} Path Editor{color.RESET}\n\n')
+        option = input(f'{color.LIGHTBLUE_EX}GD Save Editor by Xytriza\n\n{color.YELLOW}[1]{color.LIGHTGREEN_EX} Compile     {color.YELLOW}[2]{color.LIGHTGREEN_EX} Decompile     {color.YELLOW}[3]{color.LIGHTGREEN_EX} Change GD Save Path{color.RESET}\n\n')
 
         if option == '1':
             clear()
@@ -57,10 +56,9 @@ def main():
                 continue
             config_data = load_config()
             SAVE_FILE_PATH = config_data.get('save-path')
-            SAVE_FILE_NAMES = config_data.get('save-file-names')
             CURRENT_PATH = os.getcwd().replace('\\', '/')
 
-            for save_file in SAVE_FILE_NAMES:
+            for save_file in ['CCGameManager.dat', 'CCLocalLevels.dat']:
                 XML_NAME = save_file.replace('.dat', '.xml')
                 INPUT_PATH = os.path.join(CURRENT_PATH, save_file).replace('\\', '/')
                 INPUT_PATH_XML = os.path.join(CURRENT_PATH, save_file).replace('\\', '/').replace('.dat', '.xml')
@@ -96,10 +94,9 @@ def main():
                 continue
             config_data = load_config()
             SAVE_FILE_PATH = config_data.get('save-path')
-            SAVE_FILE_NAMES = config_data.get('save-file-names')
             CURRENT_PATH = os.getcwd()
 
-            for save_file in SAVE_FILE_NAMES:
+            for save_file in ['CCGameManager.dat', 'CCLocalLevels.dat']:
                 XML_NAME = save_file.replace('.dat', '.xml')
                 INPUT_PATH = os.path.join(SAVE_FILE_PATH, save_file).replace('\\', '/')
                 OUTPUT_PATH = os.path.join(CURRENT_PATH, save_file).replace('\\', '/')
@@ -123,57 +120,27 @@ def main():
                     print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
             time.sleep(3)
         elif option == '3':
-            while True:
+            clear()
+            folder = input(f'{color.LIGHTBLUE_EX}Enter the save folder path\n\n{color.RESET}').replace('\\', '/')
+            if folder.replace(' ', '') == '':
+                continue
+            if not os.path.exists(folder):
                 clear()
-                edit_option = input(f'{color.LIGHTBLUE_EX}Path Editor\n\n{color.YELLOW}[1]{color.LIGHTGREEN_EX} Edit Save Folder Path     {color.YELLOW}[2]{color.LIGHTGREEN_EX} Edit Save File Names     {color.YELLOW}[3]{color.LIGHTGREEN_EX} Exit Editor{color.RESET}\n\n')
+                print(f'{color.RED}[X]{color.LIGHTRED_EX} Folder Doesn\'t exist{color.RESET}')
+                time.sleep(3)
+                continue
 
-                if edit_option == '1':
-                    clear()
-                    folder = input(f'{color.LIGHTBLUE_EX}Enter the save folder path\n\n{color.RESET}').replace('\\', '/')
-                    if folder.replace(' ', '') == '':
-                        continue
-                    if not os.path.exists(folder):
-                        clear()
-                        print(f'{color.RED}[X]{color.LIGHTRED_EX} Folder Doesn\'t exist{color.RESET}')
-                        time.sleep(3)
-                        continue
+            try:
+                config_data = load_config()
+                config_data['save-path'] = folder
+                with open('config-gd-save-editor.json', 'w') as file:
+                    json.dump(config_data, file, indent=4)
 
-                    try:
-                        config_data = load_config()
-                        config_data['save-path'] = folder
-                        with open('config-gd-save-editor.json', 'w') as file:
-                            json.dump(config_data, file, indent=4)
-
-                        clear()
-                        print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Edited Save Path successfully {color.RESET}')
-                        time.sleep(3)
-                    except Exception as error:
-                        print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
-                elif edit_option == '2':
-                    clear()
-                    names = input(f'{color.LIGHTBLUE_EX}Enter the new save filenames, seperated by commas\n\n{color.RESET}')
-                    if names.replace(' ', '') == '':
-                        continue
-
-                    try:
-                        clear()
-                        config_data = load_config()
-                        new_values = [value.strip() for value in names.split(',')]
-                        config_data['save-file-names'] = new_values
-                        with open('config-gd-save-editor.json', 'w') as file:
-                            json.dump(config_data, file, indent=4)
-
-                        clear()
-                        print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Edited Save Names successfully {color.RESET}')
-                        time.sleep(3)
-                    except Exception as error:
-                        print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
-                elif edit_option == '3':
-                    break
-                else:
-                    clear()
-                    print(f'{color.RED}[!]{color.LIGHTRED_EX} Invalid Option{color.RESET}')
-                    time.sleep(3)
+                clear()
+                print(f'{color.GREEN}[!]{color.LIGHTGREEN_EX} Edited Save Path successfully {color.RESET}')
+                time.sleep(3)
+            except Exception as error:
+                print(f'{color.RED}[X]{color.LIGHTRED_EX} {error}{color.RESET}')
         else:
             clear()
             print(f'{color.RED}[!]{color.LIGHTRED_EX} Invalid Option{color.RESET}')
